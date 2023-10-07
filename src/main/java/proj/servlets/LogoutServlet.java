@@ -27,6 +27,6 @@ public class LogoutServlet extends HttpServlet {
         if (session != null){
             session.invalidate();
         }
-        resp.sendRedirect("login.html");
+        resp.sendRedirect("main.ftl");
     }
 }

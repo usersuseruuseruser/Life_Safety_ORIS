@@ -3,6 +3,7 @@ package proj.service.impl;
 
 
 import proj.Dao.Dao;
+import proj.Dao.Impl.UserDao;
 import proj.Dao.Impl.UserDaoImpl;
 import proj.Dto.UserDto;
 import proj.models.User;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class UserServiceImpl implements UserService {
-    private final Dao<User> dao = new UserDaoImpl();
+    private final UserDao dao = new UserDaoImpl();
     @Override
     public List<UserDto> getAll() {
         return dao.getAll().stream().map(
@@ -23,7 +24,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto get(int id) {
         User user = dao.get(id);
-        return new UserDto(user.getName(), user.getEmail(), user.getSelfInfo());
+        if (user == null){
+            return null;
+        }
+        else {
+            return new UserDto(user.getName(), user.getEmail(), user.getSelfInfo());
+        }
     }
 
     @Override
@@ -34,6 +40,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto get(String login) {
-        return null;
+        User user = dao.get(login);
+        if (user == null){
+            return null;
+        }
+        else {
+            return new UserDto(user.getName(), user.getEmail(), user.getSelfInfo());
+        }
+    }
+
+    @Override
+    public boolean exists(String login, String password) {
+        User user = dao.get(login);
+        if (user == null){
+            return false;
+        }
+        else {
+            return PasswordUtil.encrypt(password).equals(user.getPassword());
+        }
     }
 }

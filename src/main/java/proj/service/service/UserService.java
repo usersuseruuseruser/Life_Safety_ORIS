@@ -12,4 +12,5 @@ public interface UserService {
     UserDto get(int id);
     void save(User user);
     UserDto get(String login);
+    boolean exists(String login, String password);
 }

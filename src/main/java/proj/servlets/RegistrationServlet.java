@@ -27,13 +27,13 @@ public class RegistrationServlet extends HttpServlet {
         if (userService.get(login) != null) {
             //обработать исключение. создать страницу с exception
             //заглушка
-            resp.sendRedirect("registration.html");
+            resp.sendRedirect("/registration");
             return;
         }
         User newUser = new User(name,null,login,password,null);
 
         userService.save(newUser);
 
-        resp.sendRedirect("Main.jsp");
+        resp.sendRedirect("/main");
     }
 }

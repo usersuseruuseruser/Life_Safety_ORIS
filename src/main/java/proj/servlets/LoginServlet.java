@@ -27,8 +27,12 @@ public class LoginServlet extends HttpServlet {
         if (userService.exists(login,password)) {
             HttpSession httpSession = req.getSession();
             httpSession.setAttribute("username", login);
+            httpSession.setAttribute("isLoggedIn",true);
             httpSession.setMaxInactiveInterval(60 * 60);
+            resp.sendRedirect("/main");
         }
-        resp.sendRedirect("Main.jsp");
+        else{
+            resp.sendRedirect("/login");
+        }
     }
 }

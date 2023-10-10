@@ -17,12 +17,8 @@ public class UserPrivelegesFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
         HttpSession session = httpRequest.getSession();
-
-        if (session.getAttribute("username") == null) {
-            session.setAttribute("isUserLoggedIn", false);
-        } else {
-            session.setAttribute("isUserLoggedIn", true);
-        }
+        Boolean isLoggedIn = session.getAttribute("username") != null;
+        servletRequest.setAttribute("isLoggedIn",isLoggedIn);
 
         filterChain.doFilter(servletRequest, servletResponse);
     }

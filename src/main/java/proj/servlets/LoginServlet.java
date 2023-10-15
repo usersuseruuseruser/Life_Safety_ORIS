@@ -14,28 +14,30 @@ public class LoginServlet extends HttpServlet {
     private final UserService userService = new UserServiceImpl();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Cookie[] cookies = req.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("rememberMe")) {
-                    String token = cookie.getValue();
-                    String userLogin = userService.getLoginByToken(token);
-                    if (userLogin != null) {
-                        HttpSession httpSession = req.getSession();
-                        httpSession.setAttribute("username", userLogin);
-                        httpSession.setAttribute("isLoggedIn",true);
-                        /*httpSession.setMaxInactiveInterval(60 * 60);
-                        resp.sendRedirect("/main");
-                        return;*/
-                        req.setAttribute("savedLogin", userLogin);
-                        req.setAttribute("savedPassword", "12345678"); // lol kek cheburek
-                        req.getRequestDispatcher("login.ftl").forward(req, resp);
-                        return;
+        HttpSession session = req.getSession(false);
+        if (session != null && session.getAttribute("username") != null){
+            resp.sendRedirect("/main");
+        } else {
+            Cookie[] cookies = req.getCookies();
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if (cookie.getName().equals("rememberMe")) {
+                        String token = cookie.getValue();
+                        String userLogin = userService.getLoginByToken(token);
+                        if (userLogin != null) {
+                            HttpSession httpSession = req.getSession();
+                            httpSession.setAttribute("username", userLogin);
+                            httpSession.setAttribute("isLoggedIn", true);
+                            req.setAttribute("savedLogin", userLogin);
+                            req.setAttribute("savedPassword", "12345678"); // lol kek cheburek
+                            req.getRequestDispatcher("login.ftl").forward(req, resp);
+                            return;
+                        }
                     }
                 }
             }
+            resp.sendRedirect("login.ftl");
         }
-        resp.sendRedirect("login.ftl");
     }
 
     @Override

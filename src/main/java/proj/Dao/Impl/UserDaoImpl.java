@@ -106,12 +106,15 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void update(String login, User user) {
         try {
-            String sql = "UPDATE userz SET \"loginToken\" = ? WHERE login = ?";
+            String sql = "UPDATE userz SET name = ?, email = ?, password = ?, selfInfo = ?, \"loginToken\" = ? WHERE login = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
-            preparedStatement.setString(1, user.getLoginToken());
-            preparedStatement.setString(2, login);
-            System.out.println(preparedStatement.toString());
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getEmail());
+            preparedStatement.setString(3, user.getPassword());
+            preparedStatement.setString(4, user.getSelfInfo());
+            preparedStatement.setString(5, user.getLoginToken());
+            preparedStatement.setString(6, user.getLogin());
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
             throw new RuntimeException(ex);

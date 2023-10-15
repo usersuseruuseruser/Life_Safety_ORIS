@@ -72,4 +72,13 @@ public class UserServiceImpl implements UserService {
         User user = dao.getByToken(token);
         return user.getLogin();
     }
+
+    @Override
+    public void updateUser(String login,UserDto userDto) {
+        User user = dao.get(login);
+        user.setName(userDto.getName());
+        user.setSelfInfo(userDto.getSelfInfo());
+        user.setEmail(userDto.getEmail());
+        dao.update(login,user);
+    }
 }

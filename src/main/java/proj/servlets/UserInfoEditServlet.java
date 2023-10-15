@@ -1,8 +1,9 @@
 package proj.servlets;
 
-import proj.models.User;
+import proj.Dto.UserDto;
 import proj.service.impl.UserServiceImpl;
 import proj.service.service.UserService;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,35 +12,29 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(name = "registration",urlPatterns = "/registration")
-public class RegistrationServlet extends HttpServlet {
+@WebServlet(name="editUserInfo",urlPatterns = "/account/edit")
+public class UserInfoEditServlet extends HttpServlet {
     private final UserService userService = new UserServiceImpl();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
         if (session != null && session.getAttribute("username") != null) {
-            resp.sendRedirect("/main");
+            resp.sendRedirect("/editUserAccountInfo.ftl");
         } else {
-            resp.sendRedirect("registration.ftl");
+            resp.sendRedirect("/main");
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String name = req.getParameter("name");
-        String login = req.getParameter("login");
-        String password = req.getParameter("password");
+        UserDto dto = new UserDto();
+        dto.setName(req.getParameter("name"));
+        dto.setEmail(req.getParameter("email"));
+        dto.setSelfInfo(req.getParameter("selfInfo"));
 
-        if (userService.get(login) != null) {
-            //обработать исключение. создать страницу с exception
-            //заглушка
-            resp.sendRedirect("/registration");
-            return;
-        }
-        User newUser = new User(name,null,login,password,null,null);
-
-        userService.save(newUser);
-
-        resp.sendRedirect("/main");
+        HttpSession session = req.getSession(false);
+        String login = (String) session.getAttribute("username");
+        userService.updateUser(login,dto);
+        resp.sendRedirect("/account");
     }
 }

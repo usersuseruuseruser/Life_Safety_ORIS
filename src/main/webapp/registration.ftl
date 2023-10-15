@@ -5,6 +5,7 @@
     <form action="registration" method = "post">
         Name:
         <input type="text" name="name">
+        <br>
         Login:
         <input type="text" name="login"/>
         <br>

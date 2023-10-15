@@ -11,6 +11,8 @@ public class UserDto {
         this.selfInfo = selfInfo;
     }
 
+    public UserDto() {}
+
     public String getName() {
         return name;
     }

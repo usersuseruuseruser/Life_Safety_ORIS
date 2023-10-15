@@ -17,13 +17,6 @@ public class LogoutServlet extends HttpServlet {
         clear(req,resp);
     }
     private void clear(HttpServletRequest req,HttpServletResponse resp) throws IOException {
-        Cookie[] cookies = req.getCookies();
-        if (cookies != null){
-            for (Cookie cookie: cookies){
-                cookie.setMaxAge(0);
-                resp.addCookie(cookie);
-            }
-        }
         HttpSession session = req.getSession();
         if (session != null){
             session.invalidate();

@@ -4,10 +4,10 @@
 <#macro content>
     <form action="login" method="post">
         Login:
-        <input type="text" name="login"/>
+        <input type="text" name="login" value="${savedLogin!''}">
         <br>
         Password:
-        <input type="password" name="password">
+        <input type="password" name="password" value="${savedPassword!''}">
         <br>
         <input type="checkbox" name="rememberMe" value="yes"> Запомнить меня
         <br>

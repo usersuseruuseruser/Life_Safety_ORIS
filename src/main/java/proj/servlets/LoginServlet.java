@@ -24,8 +24,12 @@ public class LoginServlet extends HttpServlet {
                         HttpSession httpSession = req.getSession();
                         httpSession.setAttribute("username", userLogin);
                         httpSession.setAttribute("isLoggedIn",true);
-                        httpSession.setMaxInactiveInterval(60 * 60);
+                        /*httpSession.setMaxInactiveInterval(60 * 60);
                         resp.sendRedirect("/main");
+                        return;*/
+                        req.setAttribute("savedLogin", userLogin);
+                        req.setAttribute("savedPassword", "12345678"); // lol kek cheburek
+                        req.getRequestDispatcher("login.ftl").forward(req, resp);
                         return;
                     }
                 }
@@ -38,7 +42,24 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
+        Cookie[] cookies = req.getCookies();
 
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("rememberMe")) {
+                    String token = cookie.getValue();
+                    String userLogin = userService.getLoginByToken(token);
+                    if (userLogin != null) {
+                        HttpSession httpSession = req.getSession();
+                        httpSession.setAttribute("username", userLogin);
+                        httpSession.setAttribute("isLoggedIn",true);
+                        httpSession.setMaxInactiveInterval(60 * 60);
+                        resp.sendRedirect("/main");
+                        return;
+                    }
+                }
+            }
+        }
         // проверяем, что по такому логину и паролю есть юзер. заодно смотрим нужно ли
         // отправить ему несколько куки чтобы потом было легче входить
         if (userService.exists(login,password)) {

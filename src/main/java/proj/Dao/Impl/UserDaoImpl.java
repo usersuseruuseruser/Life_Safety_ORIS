@@ -86,7 +86,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void save(User user) {
-        String sql = "insert into userz (name, email, login, password,selfInfo,loginToken) VALUES (?,?,?,?,?,?)";
+        String sql = "insert into userz (name, email, login, password,selfInfo,\"loginToken\") VALUES (?,?,?,?,?,?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1,user.getName());

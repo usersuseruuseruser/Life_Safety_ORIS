@@ -6,8 +6,10 @@
 </head>
 <body>
 <div id="header">
-    <#if isLoggedIn??>
+    <a href="/main">На главную</a>
+    <#if isLoggedIn == true>
         <a href="/account">Личный кабинет</a>
+        <a href="/logout">Выйти из аккаунта</a>
     <#else>
         <a href="/registration">Зарегистрироваться</a>
         <a href="/login">Войти</a>

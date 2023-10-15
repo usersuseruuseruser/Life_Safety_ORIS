@@ -20,7 +20,8 @@ public class LogoutServlet extends HttpServlet {
         Cookie[] cookies = req.getCookies();
         if (cookies != null){
             for (Cookie cookie: cookies){
-                cookie.setMaxAge(1);
+                cookie.setMaxAge(0);
+                resp.addCookie(cookie);
             }
         }
         HttpSession session = req.getSession();

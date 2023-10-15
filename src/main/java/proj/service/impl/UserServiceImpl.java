@@ -59,4 +59,17 @@ public class UserServiceImpl implements UserService {
             return PasswordUtil.encrypt(password).equals(user.getPassword());
         }
     }
+
+    @Override
+    public void saveLoginToken(String login, String loginToken) {
+        User user = dao.get(login);
+        user.setLoginToken(loginToken);
+        dao.update(login, user);
+    }
+
+    @Override
+    public String getLoginByToken(String token) {
+        User user = dao.getByToken(token);
+        return user.getLogin();
+    }
 }

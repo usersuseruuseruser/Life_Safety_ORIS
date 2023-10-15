@@ -25,7 +25,8 @@ public class UserDaoImpl implements UserDao {
                         resultset.getString("email"),
                         resultset.getString("login"),
                         resultset.getString("password"),
-                        resultset.getString("selfInfo")
+                        resultset.getString("selfInfo"),
+                        resultset.getString("loginToken")
                 );
             }
             return null;
@@ -48,7 +49,8 @@ public class UserDaoImpl implements UserDao {
                         resultset.getString("email"),
                         resultset.getString("login"),
                         resultset.getString("password"),
-                        resultset.getString("selfInfo")
+                        resultset.getString("selfInfo"),
+                        resultset.getString("loginToken")
                 );
             }
             return null;
@@ -71,7 +73,8 @@ public class UserDaoImpl implements UserDao {
                             resultset.getString("lastname"),
                             resultset.getString("email"),
                             resultset.getString("login"),
-                            resultset.getString("password")
+                            resultset.getString("password"),
+                            resultset.getString("loginToken")
                     ));
                 }
             }
@@ -83,7 +86,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void save(User user) {
-        String sql = "insert into userz (name, email, login, password,selfInfo) VALUES (?,?,?,?,?)";
+        String sql = "insert into userz (name, email, login, password,selfInfo,loginToken) VALUES (?,?,?,?,?,?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1,user.getName());
@@ -91,11 +94,51 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(3,user.getLogin());
             preparedStatement.setString(4,user.getPassword());
             preparedStatement.setString(5,user.getSelfInfo());
+            preparedStatement.setString(6, user.getLoginToken());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e){
             throw new RuntimeException(e);
         }
 
+    }
+
+    @Override
+    public void update(String login, User user) {
+        try {
+            String sql = "UPDATE userz SET \"loginToken\" = ? WHERE login = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setString(1, user.getLoginToken());
+            preparedStatement.setString(2, login);
+            System.out.println(preparedStatement.toString());
+            preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    @Override
+    public User getByToken(String loginToken) {
+        try {
+            String sql = "SELECT * FROM userz WHERE \"loginToken\" = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, loginToken);
+
+            ResultSet resultset = preparedStatement.executeQuery();
+            if (resultset.next()) {
+                return new User(
+                        resultset.getString("name"),
+                        resultset.getString("email"),
+                        resultset.getString("login"),
+                        resultset.getString("password"),
+                        resultset.getString("selfInfo"),
+                        resultset.getString("loginToken")
+                );
+            }
+            return null;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 }

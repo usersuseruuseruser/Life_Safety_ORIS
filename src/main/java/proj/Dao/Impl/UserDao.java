@@ -10,4 +10,6 @@ public interface UserDao extends Dao<User> {
     List<User> getAll();
     void save(User t);
     User get(String login);
+    void update(String username,User user);
+    User getByToken(String loginToken);
 }

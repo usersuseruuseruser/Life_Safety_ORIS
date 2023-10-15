@@ -13,4 +13,6 @@ public interface UserService {
     void save(User user);
     UserDto get(String login);
     boolean exists(String login, String password);
+    void saveLoginToken(String login, String loginToken);
+    String getLoginByToken(String token);
 }

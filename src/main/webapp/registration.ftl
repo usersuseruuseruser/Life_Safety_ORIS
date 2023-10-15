@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Registrationu paiju des</title>
-</head>
-<body>
+<html>
+<#include "base.ftl">
+<#macro title>Registration page</#macro>
+<#macro content>
     <form action="registration" method = "post">
         Name:
         <input type="text" name="name">
@@ -16,5 +13,5 @@
         <br>
         <input type="submit" value="Sign up">
     </form>
-</body>
+</#macro>
 </html>

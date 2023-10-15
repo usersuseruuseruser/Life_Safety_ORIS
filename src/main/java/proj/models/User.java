@@ -7,17 +7,27 @@ public class User {
     private String login;
     private String password;
     private String selfInfo;
+    private String loginToken;
 
     public User(int id) {
         this.id = id;
     }
 
-    public User(String name, String email, String login, String password, String selfInfo) {
+    public User(String name, String email, String login, String password, String selfInfo, String loginToken) {
         this.name = name;
         this.email = email;
         this.login = login;
         this.password = password;
         this.selfInfo = selfInfo;
+        this.loginToken = loginToken;
+    }
+
+    public String getLoginToken() {
+        return loginToken;
+    }
+
+    public void setLoginToken(String loginToken) {
+        this.loginToken = loginToken;
     }
 
     public int getId() {

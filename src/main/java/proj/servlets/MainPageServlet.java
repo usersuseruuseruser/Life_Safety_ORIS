@@ -1,5 +1,8 @@
 package proj.servlets;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +13,7 @@ import java.io.IOException;
 
 @WebServlet(name = "Main",urlPatterns = "/main")
 public class MainPageServlet extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("Main.ftl").forward(req, resp);

@@ -15,7 +15,7 @@ public class RegistrationServlet extends HttpServlet {
     private final UserService userService = new UserServiceImpl();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect("registration.html");
+        resp.sendRedirect("registration.ftl");
     }
 
     @Override
@@ -30,7 +30,7 @@ public class RegistrationServlet extends HttpServlet {
             resp.sendRedirect("/registration");
             return;
         }
-        User newUser = new User(name,null,login,password,null);
+        User newUser = new User(name,null,login,password,null,null);
 
         userService.save(newUser);
 

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(name = "Account",urlPatterns = "/Account")
+@WebServlet(name = "Account",urlPatterns = "/account")
 public class PersonalAccountServlet extends HttpServlet {
     private final UserService userService = new UserServiceImpl();
     @Override

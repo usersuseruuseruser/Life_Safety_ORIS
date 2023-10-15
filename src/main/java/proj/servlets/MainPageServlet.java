@@ -12,9 +12,6 @@ import java.io.IOException;
 public class MainPageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Object isLoggedIn = req.getAttribute("isLoggedIn");
-        req.setAttribute("isLoggedIn",isLoggedIn);
-
         req.getRequestDispatcher("Main.ftl").forward(req, resp);
     }
 

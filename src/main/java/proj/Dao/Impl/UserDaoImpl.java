@@ -26,7 +26,8 @@ public class UserDaoImpl implements UserDao {
                         resultset.getString("login"),
                         resultset.getString("password"),
                         resultset.getString("selfInfo"),
-                        resultset.getString("loginToken")
+                        resultset.getString("loginToken"),
+                        resultset.getString("profilePictureUrl")
                 );
             }
             return null;
@@ -50,7 +51,8 @@ public class UserDaoImpl implements UserDao {
                         resultset.getString("login"),
                         resultset.getString("password"),
                         resultset.getString("selfInfo"),
-                        resultset.getString("loginToken")
+                        resultset.getString("loginToken"),
+                        resultset.getString("profilePictureUrl")
                 );
             }
             return null;
@@ -74,7 +76,8 @@ public class UserDaoImpl implements UserDao {
                             resultset.getString("email"),
                             resultset.getString("login"),
                             resultset.getString("password"),
-                            resultset.getString("loginToken")
+                            resultset.getString("loginToken"),
+                            resultset.getString("profilePictureUrl")
                     ));
                 }
             }
@@ -86,7 +89,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void save(User user) {
-        String sql = "insert into userz (name, email, login, password,selfInfo,\"loginToken\") VALUES (?,?,?,?,?,?)";
+        String sql = "insert into userz (name, email, login, password,selfInfo,\"loginToken\",\"profilePictureUrl\")" +
+                " VALUES (?,?,?,?,?,?,?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1,user.getName());
@@ -95,6 +99,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(4,user.getPassword());
             preparedStatement.setString(5,user.getSelfInfo());
             preparedStatement.setString(6, user.getLoginToken());
+            preparedStatement.setString(7, user.getProfilePictureURl());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e){
@@ -106,7 +111,9 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void update(String login, User user) {
         try {
-            String sql = "UPDATE userz SET name = ?, email = ?, password = ?, selfInfo = ?, \"loginToken\" = ? WHERE login = ?";
+            String sql = "UPDATE userz SET name = ?, email = ?, password = ?, selfInfo = ?," +
+                    " \"loginToken\" = ?, \"profilePictureUrl\" = ? " +
+                    "WHERE login = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
             preparedStatement.setString(1, user.getName());
@@ -114,7 +121,8 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(3, user.getPassword());
             preparedStatement.setString(4, user.getSelfInfo());
             preparedStatement.setString(5, user.getLoginToken());
-            preparedStatement.setString(6, user.getLogin());
+            preparedStatement.setString(6, user.getProfilePictureURl());
+            preparedStatement.setString(7, user.getLogin());
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
@@ -136,7 +144,8 @@ public class UserDaoImpl implements UserDao {
                         resultset.getString("login"),
                         resultset.getString("password"),
                         resultset.getString("selfInfo"),
-                        resultset.getString("loginToken")
+                        resultset.getString("loginToken"),
+                        resultset.getString("profilePictureUrl")
                 );
             }
             return null;

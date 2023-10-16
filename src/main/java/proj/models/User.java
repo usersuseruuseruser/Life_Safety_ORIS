@@ -8,18 +8,29 @@ public class User {
     private String password;
     private String selfInfo;
     private String loginToken;
+    private String profilePictureURl;
 
     public User(int id) {
         this.id = id;
     }
 
-    public User(String name, String email, String login, String password, String selfInfo, String loginToken) {
+    public User(String name, String email, String login, String password,
+                String selfInfo, String loginToken, String profilePictureURl) {
         this.name = name;
         this.email = email;
         this.login = login;
         this.password = password;
         this.selfInfo = selfInfo;
         this.loginToken = loginToken;
+        this.profilePictureURl = profilePictureURl;
+    }
+
+    public String getProfilePictureURl() {
+        return profilePictureURl;
+    }
+
+    public void setProfilePictureURl(String profilePictureURl) {
+        this.profilePictureURl = profilePictureURl;
     }
 
     public String getLoginToken() {

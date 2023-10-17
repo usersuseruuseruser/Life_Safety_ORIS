@@ -2,7 +2,6 @@
 <head>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src = "/js/findUser.js"></script>
-    <script src = "/js/hideUsersIfButtonClicked.js"></script>
 </head>
 <#if users?size != 1>
     <input type="text" id="searchUsername">

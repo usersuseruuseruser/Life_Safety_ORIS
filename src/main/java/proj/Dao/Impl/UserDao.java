@@ -12,4 +12,5 @@ public interface UserDao extends Dao<User> {
     User get(String login);
     void update(String username,User user);
     User getByToken(String loginToken);
+    User getByUsername(String username);
 }

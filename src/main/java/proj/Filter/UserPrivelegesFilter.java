@@ -19,6 +19,7 @@ public class UserPrivelegesFilter implements Filter {
         HttpSession session = httpRequest.getSession();
         Boolean isLoggedIn = session.getAttribute("username") != null;
         servletRequest.setAttribute("isLoggedIn",isLoggedIn);
+        if (isLoggedIn) servletRequest.setAttribute("username", session.getAttribute("username"));
 
         filterChain.doFilter(servletRequest, servletResponse);
     }

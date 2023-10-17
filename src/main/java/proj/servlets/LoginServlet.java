@@ -1,5 +1,6 @@
 package proj.servlets;
 
+import proj.Dto.UserDto;
 import proj.service.impl.UserServiceImpl;
 import proj.service.service.UserService;
 
@@ -44,6 +45,12 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
+        UserDto dto = userService.get(login);
+        if (dto == null){
+            resp.sendRedirect("/login");
+            return;
+        }
+        String username = dto.getName();
         Cookie[] cookies = req.getCookies();
 
         if (cookies != null) {
@@ -53,7 +60,8 @@ public class LoginServlet extends HttpServlet {
                     String userLogin = userService.getLoginByToken(token);
                     if (userLogin != null) {
                         HttpSession httpSession = req.getSession();
-                        httpSession.setAttribute("username", userLogin);
+                        httpSession.setAttribute("username", username);
+                        httpSession.setAttribute("login",login);
                         httpSession.setAttribute("isLoggedIn",true);
                         httpSession.setMaxInactiveInterval(60 * 60);
                         resp.sendRedirect("/main");
@@ -74,7 +82,8 @@ public class LoginServlet extends HttpServlet {
                 resp.addCookie(rememberMeCookie);
             }
             HttpSession httpSession = req.getSession();
-            httpSession.setAttribute("username", login);
+            httpSession.setAttribute("username", username);
+            httpSession.setAttribute("login",login);
             httpSession.setAttribute("isLoggedIn",true);
             httpSession.setMaxInactiveInterval(60 * 60);
             resp.sendRedirect("/main");

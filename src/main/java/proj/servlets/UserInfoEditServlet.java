@@ -31,7 +31,7 @@ public class UserInfoEditServlet extends HttpServlet {
         HttpSession session = req.getSession(false);
         if (session != null && session.getAttribute("username") != null) {
             String userName = (String) session.getAttribute("username");
-            UserDto userDTO = userService.get(userName);
+            UserDto userDTO = userService.getByName(userName);
             req.setAttribute("user", userDTO);
             req.getRequestDispatcher("editUserAccountInfo.ftl").forward(req, resp);
         } else {
@@ -42,8 +42,8 @@ public class UserInfoEditServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
-        String login = (String) session.getAttribute("username");
-        UserDto dto = userService.get(login);
+        String username = (String) session.getAttribute("username");
+        UserDto dto = userService.getByName(username);
         String name = req.getParameter("name");
         String email = req.getParameter("email");
         String selfInfo = req.getParameter("selfInfo");
@@ -62,7 +62,7 @@ public class UserInfoEditServlet extends HttpServlet {
             }
         }
 
-        userService.updateUser(login,dto);
-        resp.sendRedirect("/account");
+        userService.updateUser((String) session.getAttribute("login"),dto);
+        resp.sendRedirect("/users/" + username);
     }
 }

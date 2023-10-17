@@ -1,16 +1,26 @@
 package proj.Dto;
 
 public class UserDto {
+    private int id;
     private String name;
     private String email;
     private String selfInfo;
     private String profilePictureUrl;
 
-    public UserDto(String name, String email, String selfInfo,String profilePictureUrl) {
+    public UserDto(int id,String name, String email, String selfInfo,String profilePictureUrl) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.selfInfo = selfInfo;
         this.profilePictureUrl = profilePictureUrl;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getProfilePictureUrl() {

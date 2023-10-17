@@ -16,4 +16,5 @@ public interface UserService {
     void saveLoginToken(String login, String loginToken);
     String getLoginByToken(String token);
     void updateUser(String login, UserDto user);
+    UserDto getByName(String username);
 }

@@ -8,7 +8,7 @@
 <div id="header">
     <a href="/main">На главную</a>
     <#if isLoggedIn == true>
-        <a href="/account">Личный кабинет</a>
+        <a href="/users/${username}">Личный кабинет</a>
         <a href="/logout">Выйти из аккаунта</a>
     <#else>
         <a href="/registration">Зарегистрироваться</a>

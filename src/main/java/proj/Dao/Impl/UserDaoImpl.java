@@ -21,6 +21,7 @@ public class UserDaoImpl implements UserDao {
             ResultSet resultset = preparedStatement.executeQuery();
             if (resultset.next()) {
                 return new User(
+                        resultset.getInt("id"),
                         resultset.getString("name"),
                         resultset.getString("email"),
                         resultset.getString("login"),
@@ -46,6 +47,7 @@ public class UserDaoImpl implements UserDao {
             ResultSet resultset = preparedStatement.executeQuery();
             if (resultset.next()) {
                 return new User(
+                        resultset.getInt("id"),
                         resultset.getString("name"),
                         resultset.getString("email"),
                         resultset.getString("login"),
@@ -71,11 +73,12 @@ public class UserDaoImpl implements UserDao {
             if (resultset != null) {
                 while (resultset.next()) {
                     users.add(new User(
+                            resultset.getInt("id"),
                             resultset.getString("name"),
-                            resultset.getString("lastname"),
                             resultset.getString("email"),
                             resultset.getString("login"),
                             resultset.getString("password"),
+                            resultset.getString("selfInfo"),
                             resultset.getString("loginToken"),
                             resultset.getString("profilePictureUrl")
                     ));
@@ -139,6 +142,33 @@ public class UserDaoImpl implements UserDao {
             ResultSet resultset = preparedStatement.executeQuery();
             if (resultset.next()) {
                 return new User(
+                        resultset.getInt("id"),
+                        resultset.getString("name"),
+                        resultset.getString("email"),
+                        resultset.getString("login"),
+                        resultset.getString("password"),
+                        resultset.getString("selfInfo"),
+                        resultset.getString("loginToken"),
+                        resultset.getString("profilePictureUrl")
+                );
+            }
+            return null;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    @Override
+    public User getByUsername(String username) {
+        try {
+            String sql = "SELECT * FROM userz WHERE name = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, username);
+
+            ResultSet resultset = preparedStatement.executeQuery();
+            if (resultset.next()) {
+                return new User(
+                        resultset.getInt("id"),
                         resultset.getString("name"),
                         resultset.getString("email"),
                         resultset.getString("login"),

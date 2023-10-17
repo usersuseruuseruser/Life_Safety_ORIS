@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDto> getAll() {
         return dao.getAll().stream().map(
-                u -> new UserDto(u.getName(),u.getEmail(),u.getSelfInfo(),u.getProfilePictureURl())
+                u -> new UserDto(u.getId(),u.getName(),u.getEmail(),u.getSelfInfo(),u.getProfilePictureURl())
         ).collect(Collectors.toList());
     }
 
@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
             return null;
         }
         else {
-            return new UserDto(user.getName(), user.getEmail(), user.getSelfInfo(),user.getProfilePictureURl());
+            return new UserDto(user.getId(),user.getName(), user.getEmail(), user.getSelfInfo(),user.getProfilePictureURl());
         }
     }
 
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
             return null;
         }
         else {
-            return new UserDto(user.getName(), user.getEmail(), user.getSelfInfo(),user.getProfilePictureURl());
+            return new UserDto(user.getId(),user.getName(), user.getEmail(), user.getSelfInfo(),user.getProfilePictureURl());
         }
     }
 
@@ -76,10 +76,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(String login,UserDto userDto) {
         User user = dao.get(login);
+        user.setId(userDto.getId());
         user.setName(userDto.getName());
         user.setSelfInfo(userDto.getSelfInfo());
         user.setEmail(userDto.getEmail());
         user.setProfilePictureURl(userDto.getProfilePictureUrl());
         dao.update(login,user);
+    }
+
+    @Override
+    public UserDto getByName(String username) {
+        User user = dao.getByUsername(username);
+        if (user == null){
+            return null;
+        }
+        else {
+            return new UserDto(user.getId(),user.getName(), user.getEmail(), user.getSelfInfo(),user.getProfilePictureURl());
+        }
     }
 }

@@ -14,8 +14,9 @@ public class User {
         this.id = id;
     }
 
-    public User(String name, String email, String login, String password,
+    public User(int id,String name, String email, String login, String password,
                 String selfInfo, String loginToken, String profilePictureURl) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.login = login;

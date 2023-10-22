@@ -14,7 +14,7 @@
 
         <input type="file" name="picture"><br>
 
-        <input type="submit" value="Update">
+        <input type="submit" value="Обновить">
     </form>
 
 </#macro>

@@ -1,6 +1,5 @@
 $(document).on("click", "#ajax-button", function() {
-    console.log("Debug");
-
+    console.log("Button clicked!");
     const username = $("#searchUsername").val();
     $.get("/searchUser?username=" + username, function(user) {
     if (user) {

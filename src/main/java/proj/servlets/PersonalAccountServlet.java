@@ -20,22 +20,19 @@ public class PersonalAccountServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        if (session.getAttribute("username") == null){
-            resp.sendRedirect("/main");
-        } else {
-            UserService userService = new UserServiceImpl();
-            String path = req.getRequestURI().substring(req.getContextPath().length());
-            List<UserDto> listUserDto = new ArrayList<>();
-            if (path.equals("/users")) {
-                listUserDto =  userService.getAll();
-            } else{
-                String userName = path.split("/")[2];
-                UserDto userDto = userService.getByName(userName);
-                listUserDto.add(userDto);
-            }
-            req.setAttribute("users",listUserDto);
-            req.getRequestDispatcher("/profile.ftl").forward(req, resp);
+
+        UserService userService = new UserServiceImpl();
+        String path = req.getRequestURI().substring(req.getContextPath().length());
+        List<UserDto> listUserDto = new ArrayList<>();
+        if (path.equals("/users")) {
+            listUserDto =  userService.getAll();
+        } else{
+            String userName = path.split("/")[2];
+            UserDto userDto = userService.getByName(userName);
+            listUserDto.add(userDto);
         }
+        req.setAttribute("users",listUserDto);
+        req.getRequestDispatcher("/profile.ftl").forward(req, resp);
     }
 
     @Override

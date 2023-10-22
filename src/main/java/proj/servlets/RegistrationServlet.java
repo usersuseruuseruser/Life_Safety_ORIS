@@ -32,13 +32,26 @@ public class RegistrationServlet extends HttpServlet {
         String name = req.getParameter("name");
         String login = req.getParameter("login");
         String password = req.getParameter("password");
-        if (userService.get(login) != null || userService.getByName(name) != null
-        || (!UserValidator.validateName(name) || Objects.equals("",name))
-        || (!UserValidator.validateLogin(login) || Objects.equals("",login))
-        || (!UserValidator.validatePassword(password) || Objects.equals("",password))) {
-            resp.sendRedirect("/registration");
+        String errorMessage = "";
+
+        if(userService.get(login) != null) {
+            errorMessage = "Логин уже существует.";
+        } else if (userService.getByName(name) != null) {
+            errorMessage = "Имя пользователя уже существует.";
+        } else if (!UserValidator.validateName(name) || Objects.equals("", name)) {
+            errorMessage = "Имя не должно быть пустым, а также долнжо быть в пределах от 2 до 50 символов.";
+        } else if (!UserValidator.validateLogin(login) || Objects.equals("", login)) {
+            errorMessage = "Логин не должен быть пустым, а также должен быт ьв пределах от 3 до 30 символов.";
+        } else if (!UserValidator.validatePassword(password) || Objects.equals("", password)) {
+            errorMessage = "Пароль не должен быть пустым а также быть в пределах от 8 до 100 символов";
+        }
+
+        if (!errorMessage.isEmpty()) {
+            req.setAttribute("errorMessage", errorMessage);
+            req.getRequestDispatcher("registration.ftl").forward(req, resp);
             return;
         }
+
         User newUser = new User(0,name,null,login,password,null,null,null);
 
         userService.save(newUser);

@@ -48,7 +48,10 @@ public class UserInfoEditServlet extends HttpServlet {
         String email = req.getParameter("email");
         String selfInfo = req.getParameter("selfInfo");
 
-        if (UserValidator.validateName(name) && !Objects.equals("",name)) dto.setName(name);
+        if (UserValidator.validateName(name) && !Objects.equals("",name)){
+            dto.setName(name);
+            session.setAttribute("username",name);
+        }
         if (UserValidator.validateEmail(email) && !Objects.equals("",email)) dto.setEmail(email);
         if (UserValidator.validateSelfInfo(selfInfo) && !Objects.equals("",selfInfo)) dto.setSelfInfo(selfInfo);
         if (req.getContentType() != null && req.getContentType().startsWith("multipart/form-data")) {
@@ -63,6 +66,6 @@ public class UserInfoEditServlet extends HttpServlet {
         }
 
         userService.updateUser((String) session.getAttribute("login"),dto);
-        resp.sendRedirect("/users/" + username);
+        resp.sendRedirect("/users/" + name);
     }
 }

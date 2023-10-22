@@ -9,22 +9,28 @@
     <input type="text" id="searchUsername">
     <button id="ajax-button">Search User</button>
 </#if>
+
 <div id="searchResults"></div>
 <div class="user-content">
 <#list users as user>
-    <h1><strong>${user.name}</strong></h1>
-    <#if (user.profilePictureUrl)??>
-        <img src=${user.profilePictureUrl}>
-    <#else>
-        Здесь будет фото вашего профиля
-    </#if>
-    <p><strong>Email:</strong> ${user.email!"Не указано"}</p>
-    <p><strong>Self Info:</strong> ${user.selfInfo!"Не указано"}</p>
-
-    <#if users?size == 1 && username?? && user.name == username>
-        <a href="/edit">Изменить информацию</a>
-    </#if>
+    <div class="card" style="width: 20rem;">
+        <#if (user.profilePictureUrl)??>
+            <img src="${user.profilePictureUrl}" class="card-img-top" alt="${user.name}'s profile picture">
+        <#else>
+            <div class="card-header">
+                Фото еще не загружено
+            </div>
+        </#if>
+        <div class="card-body">
+            <h5 class="card-title"><H3><strong>${user.name}</strong></H3></h5>
+            <p class="card-text"><strong>Email:</strong> ${user.email!"Не указано"}</p>
+            <p class="card-text"><strong>Self Info:</strong> ${user.selfInfo!"Не указано"}</p>
+        </div>
+    </div>
 </#list>
+<#if users?size == 1 && username?? && users[0].name == username>
+    <a class="btn btn-primary" href="/edit" role="button">Изменить информацию</a>
+</#if>
 </div>
 
 </html>

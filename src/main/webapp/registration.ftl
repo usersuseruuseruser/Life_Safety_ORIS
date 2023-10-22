@@ -48,8 +48,9 @@
         </div>
     </div>
     <script>
-        $(document).ready(function() {
-            $("#errorModal").modal('show');
+        document.addEventListener("DOMContentLoaded", function() {
+            var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+            errorModal.show();
         });
     </script>
 

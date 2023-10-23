@@ -11,6 +11,17 @@
     <input type="text" id="searchUsername">
     <button id="ajax-button">Search User</button>
     <input class="form-control mb-3" id="myInput" type="text" placeholder="Универсальный поиск">
+    <form action="/users" method="post" class="mb-3">
+        <div class="input-group">
+            <label for="sorting" class="input-group-text">Сортировать:</label>
+            <select class="form-select" name="sorting" id="sorting">
+                <option value="byPhoto">По наличию фотографии</option>
+                <option value="byEmail">По наличию email</option>
+                <option value="byName">По алфавитному порядку имени</option>
+            </select>
+            <button type="submit" class="btn btn-secondary">Применить</button>
+        </div>
+    </form>
 </#if>
 <div id="searchResults"></div>
 <div class="user-content">
@@ -22,6 +33,7 @@
             <div class="card-header">
                 Фото еще не загружено
             </div>
+
         </#if>
         <div class="card-body">
             <h5 class="card-title"><H3><strong>${user.name}</strong></H3></h5>

@@ -48,9 +48,6 @@ public class UserInfoEditServlet extends HttpServlet {
         String email = req.getParameter("email");
         String selfInfo = req.getParameter("selfInfo");
         String errorMessage = "";
-        System.out.println(name);
-        System.out.println(email);
-        System.out.println(selfInfo);
         if (!name.equals("") && (!UserValidator.validateName(name) || userService.getByName(name) != null)) {
             errorMessage = "не пройдена проверка по имени." +
                     " или такой пользователь уже существует или имя не в пределах от 2 до 50 символов";

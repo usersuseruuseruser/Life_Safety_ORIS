@@ -12,16 +12,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @WebServlet(name = "Account",urlPatterns = "/users/*")
 public class PersonalAccountServlet extends HttpServlet {
     private final UserService userService = new UserServiceImpl();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-
-        UserService userService = new UserServiceImpl();
         String path = req.getRequestURI().substring(req.getContextPath().length());
         List<UserDto> listUserDto = new ArrayList<>();
         if (path.equals("/users")) {
@@ -37,6 +36,23 @@ public class PersonalAccountServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        String sorting = req.getParameter("sorting");
+
+        List<UserDto> listUserDto = switch (sorting) {
+            case "byPhoto" -> userService.getAll().stream()
+                    .filter(user -> user.getProfilePictureUrl() != null && !user.getProfilePictureUrl().isEmpty())
+                    .collect(Collectors.toList());
+            case "byEmail" -> userService.getAll().stream()
+                    .filter(user -> user.getEmail() != null && !user.getEmail().isEmpty())
+                    .collect(Collectors.toList());
+            case "byName" -> userService.getAll().stream()
+                    .sorted(Comparator.comparing(UserDto::getName).reversed())
+                    .collect(Collectors.toList());
+            default -> userService.getAll();
+        };
+
+        req.setAttribute("users", listUserDto);
+        req.getRequestDispatcher("/profile.ftl").forward(req, resp);
     }
+
 }

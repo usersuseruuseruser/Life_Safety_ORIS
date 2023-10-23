@@ -15,6 +15,7 @@
         <div class="input-group">
             <label for="sorting" class="input-group-text">Сортировать:</label>
             <select class="form-select" name="sorting" id="sorting">
+                <option value="byDefault">По умолчанию</option>
                 <option value="byPhoto">По наличию фотографии</option>
                 <option value="byEmail">По наличию email</option>
                 <option value="byName">По алфавитному порядку имени</option>

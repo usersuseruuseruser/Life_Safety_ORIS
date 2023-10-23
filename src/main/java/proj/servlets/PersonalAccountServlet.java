@@ -46,7 +46,7 @@ public class PersonalAccountServlet extends HttpServlet {
                     .filter(user -> user.getEmail() != null && !user.getEmail().isEmpty())
                     .collect(Collectors.toList());
             case "byName" -> userService.getAll().stream()
-                    .sorted(Comparator.comparing(UserDto::getName).reversed())
+                    .sorted(Comparator.comparing(UserDto::getName))
                     .collect(Collectors.toList());
             default -> userService.getAll();
         };

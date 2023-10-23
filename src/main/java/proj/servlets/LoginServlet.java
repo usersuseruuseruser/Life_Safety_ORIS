@@ -46,10 +46,19 @@ public class LoginServlet extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
         UserDto dto = userService.get(login);
-        if (dto == null
-                || !UserValidator.validateLogin(login) || Objects.equals("", login)
-                || !UserValidator.validatePassword(password) || Objects.equals("", password)){
-            resp.sendRedirect("login.ftl");
+        String errorMessage = "";
+
+        if (!UserValidator.validateLogin(login) || Objects.equals("", login)) {
+            errorMessage = "Логин не должен быть пустым, а также должен быт ьв пределах от 3 до 30 символов.";
+        } else if (!UserValidator.validatePassword(password) || Objects.equals("", password)) {
+            errorMessage = "Пароль не должен быть пустым а также быть в пределах от 8 до 100 символов";
+        } else if (dto == null) {
+            errorMessage = "Пользователь не найден";
+        }
+
+        if (!errorMessage.isEmpty()) {
+            req.setAttribute("errorMessage", errorMessage);
+            req.getRequestDispatcher("login.ftl").forward(req, resp);
             return;
         }
         String username = dto.getName();

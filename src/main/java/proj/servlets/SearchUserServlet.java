@@ -22,17 +22,17 @@ public class SearchUserServlet extends HttpServlet {
 
         if (username != null && !username.trim().isEmpty()) {
             UserDto userDTO = userService.getByName(username);
-
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("UTF-8");
             if (userDTO != null) {
                 String userJson = new Gson().toJson(userDTO);
-                resp.setContentType("application/json");
-                resp.setCharacterEncoding("UTF-8");
                 resp.getWriter().write(userJson);
             } else {
-
+                resp.getWriter().write("{\"error\":\"User not found\"}");
             }
         } else {
-
+            resp.getWriter().write("{\"error\":\"Invalid request\"}");
         }
     }
+
 }

@@ -47,13 +47,37 @@ public class UserInfoEditServlet extends HttpServlet {
         String name = req.getParameter("name");
         String email = req.getParameter("email");
         String selfInfo = req.getParameter("selfInfo");
+        String errorMessage = "";
+        System.out.println(name);
+        System.out.println(email);
+        System.out.println(selfInfo);
+        if (!name.equals("") && (!UserValidator.validateName(name) || userService.getByName(name) != null)) {
+            errorMessage = "не пройдена проверка по имени." +
+                    " или такой пользователь уже существует или имя не в пределах от 2 до 50 символов";
+        }
+        else if (!email.equals("") && !UserValidator.validateEmail(email)) {
+            errorMessage = "не пройдена проверка по email. попробуйте другой email";
+        }
+        else if (!selfInfo.equals("") && !UserValidator.validateSelfInfo(selfInfo)) {
+            errorMessage = "не пройдена проверка описания своего профиля. оно должно быть меньше 500 символов.";
+        }
+        if (!errorMessage.equals("")) {
+            req.setAttribute("errorMessage", errorMessage);
+            req.getRequestDispatcher("editUserAccountInfo.ftl").forward(req, resp);
+            return;
+        }
 
-        if (UserValidator.validateName(name) && !Objects.equals("",name)){
+        if (!name.equals("") && UserValidator.validateName(name) && userService.getByName(name) == null) {
             dto.setName(name);
             session.setAttribute("username",name);
         }
-        if (UserValidator.validateEmail(email) && !Objects.equals("",email)) dto.setEmail(email);
-        if (UserValidator.validateSelfInfo(selfInfo) && !Objects.equals("",selfInfo)) dto.setSelfInfo(selfInfo);
+        if (!email.equals("") && UserValidator.validateEmail(email)) {
+            dto.setEmail(email);
+        }
+        if (!selfInfo.equals("") && UserValidator.validateSelfInfo(selfInfo)) {
+            dto.setSelfInfo(selfInfo);
+        }
+
         if (req.getContentType() != null && req.getContentType().startsWith("multipart/form-data")) {
             Part part = req.getPart("picture");
 
@@ -66,6 +90,6 @@ public class UserInfoEditServlet extends HttpServlet {
         }
 
         userService.updateUser((String) session.getAttribute("login"),dto);
-        resp.sendRedirect("/users/" + name);
+        resp.sendRedirect("/users/" + (name.equals("")? username: name));
     }
 }

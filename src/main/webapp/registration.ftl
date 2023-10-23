@@ -2,7 +2,7 @@
 <#include "base.ftl">
 <#macro title>Registration page</#macro>
 <#macro content>
-    <form action="/registration" class="was-validated" method="post">
+    <form action="registration" class="was-validated" method="post">
 
         <div class="mb-3 mt-3">
             <label for="username" class="form-label">Логин:</label>

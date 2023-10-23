@@ -2,14 +2,16 @@
 <#include "base.ftl">
 <head>
     <script src = "/js/findUser.js"></script>
+    <script src = "/js/filter.js"></script>
 </head>
 <#macro title>Account page</#macro>
 <#macro content></#macro>
+
 <#if users?size != 1>
     <input type="text" id="searchUsername">
     <button id="ajax-button">Search User</button>
+    <input class="form-control mb-3" id="myInput" type="text" placeholder="Универсальный поиск">
 </#if>
-
 <div id="searchResults"></div>
 <div class="user-content">
 <#list users as user>

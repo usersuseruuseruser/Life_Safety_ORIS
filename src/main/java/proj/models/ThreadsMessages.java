@@ -11,6 +11,9 @@ public class ThreadsMessages {
         this.threadMessageId = threadMessageId;
     }
 
+    public ThreadsMessages() {
+    }
+
     public int getThreadsMessagesId() {
         return threadsMessagesId;
     }

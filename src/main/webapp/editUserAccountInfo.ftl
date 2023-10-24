@@ -2,6 +2,7 @@
 <#include "base.ftl">
 <#macro title>Edit account info</#macro>
 <#macro content>
+<div class="container mt-5">
     <form action="edit" class="was-validated" method="post" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="name" class="form-label">Имя:</label>
@@ -28,6 +29,7 @@
         </div>
         <button type="submit" class="btn btn-primary">Отправить</button>
     </form>
+</div>
     <div class="modal" tabindex="-1" role="dialog" id="errorModal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">

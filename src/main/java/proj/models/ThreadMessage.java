@@ -1,25 +1,26 @@
 package proj.models;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class ThreadMessage {
     private int threadMessageId;
-    private int user_id;
+    private String username;
     private String text;
-    private Date data;
+    private Timestamp data;
 
-    public ThreadMessage(int threadMessageId, int user_id, String text, Date data) {
+    public ThreadMessage(int threadMessageId, String username, String text, Timestamp data) {
         this.threadMessageId = threadMessageId;
-        this.user_id = user_id;
+        this.username = username;
         this.text = text;
         this.data = data;
     }
 
-    public Date getData() {
+    public Timestamp getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(Timestamp data) {
         this.data = data;
     }
 
@@ -31,12 +32,12 @@ public class ThreadMessage {
         this.threadMessageId = threadMessageId;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getText() {

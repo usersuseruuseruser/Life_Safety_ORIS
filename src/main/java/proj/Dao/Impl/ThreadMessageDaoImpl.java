@@ -5,15 +5,35 @@ import proj.models.ThreadMessage;
 import proj.models.User;
 import proj.utils.DatabaseConnectionUtil;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ThreadMessageDaoImpl implements ThreadMessageDao {
     private final Connection connection = DatabaseConnectionUtil.getConnection();
+
+    @Override
+    public int saveAndGetId(ThreadMessage threadMessage) {
+        try {
+            String sql = "INSERT INTO thread_messages (username, text, data) VALUES (?, ?, ?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, threadMessage.getUsername());
+            preparedStatement.setString(2, threadMessage.getText());
+            preparedStatement.setTimestamp(3, threadMessage.getData());
+
+            preparedStatement.executeUpdate();
+            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1);
+                } else {
+                    throw new SQLException("Creating threadMessage failed, no ID obtained.");
+                }
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
     @Override
     public ThreadMessage get(int id) {
         try {
@@ -25,9 +45,9 @@ public class ThreadMessageDaoImpl implements ThreadMessageDao {
             if (resultset.next()) {
                 return new ThreadMessage(
                         resultset.getInt("thread_message_id"),
-                        resultset.getInt("user_id"),
+                        resultset.getString("username"),
                         resultset.getString("text"),
-                        resultset.getDate("data")
+                        resultset.getTimestamp("data")
                         );
             }
             return null;
@@ -47,9 +67,9 @@ public class ThreadMessageDaoImpl implements ThreadMessageDao {
             while (resultset.next()) {
                 messages.add(new ThreadMessage(
                         resultset.getInt("thread_message_id"),
-                        resultset.getInt("user_id"),
+                        resultset.getString("username"),
                         resultset.getString("text"),
-                        resultset.getDate("data")
+                        resultset.getTimestamp("data")
                 ));
             }
             return messages;
@@ -61,11 +81,11 @@ public class ThreadMessageDaoImpl implements ThreadMessageDao {
     @Override
     public void save(ThreadMessage threadMessage) {
         try {
-            String sql = "INSERT INTO thread_messages (user_id, text, data) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO thread_messages (username, text, data) VALUES (?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, threadMessage.getUser_id());
+            preparedStatement.setString(1, threadMessage.getUsername());
             preparedStatement.setString(2, threadMessage.getText());
-            preparedStatement.setDate(3, threadMessage.getData());
+            preparedStatement.setTimestamp(3, threadMessage.getData());
 
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
@@ -76,11 +96,11 @@ public class ThreadMessageDaoImpl implements ThreadMessageDao {
     @Override
     public void update(int id, ThreadMessage entity) {
         try {
-            String sql = "UPDATE thread_messages SET user_id = ?, text = ?, data = ? WHERE thread_message_id = ?";
+            String sql = "UPDATE thread_messages SET username = ?, text = ?, data = ? WHERE thread_message_id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, entity.getUser_id());
+            preparedStatement.setString(1, entity.getUsername());
             preparedStatement.setString(2, entity.getText());
-            preparedStatement.setDate(3, entity.getData());
+            preparedStatement.setTimestamp(3, entity.getData());
             preparedStatement.setInt(4, id);
 
             preparedStatement.executeUpdate();

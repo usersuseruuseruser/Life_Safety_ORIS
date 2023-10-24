@@ -2,6 +2,7 @@
 <#include "base.ftl">
 <#macro title>Registration page</#macro>
 <#macro content>
+<div class="container mt-5">
     <form action="registration" class="was-validated" method="post">
 
         <div class="mb-3 mt-3">
@@ -27,7 +28,7 @@
 
         <button type="submit" class="btn btn-primary">Отправить</button>
     </form>
-
+</div>
 
     <div class="modal" tabindex="-1" role="dialog" id="errorModal">
         <div class="modal-dialog" role="document">

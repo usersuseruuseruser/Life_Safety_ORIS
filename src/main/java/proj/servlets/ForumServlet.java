@@ -3,8 +3,13 @@ package proj.servlets;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import proj.Dao.Impl.ThreadDaoImpl;
+import proj.Dao.Impl.ThreadsMessagesDaoImpl;
 import proj.Dao.ThreadDao;
+import proj.Dao.ThreadsMessagesDao;
+import proj.Dto.UserDto;
 import proj.models.Thread;
+import proj.models.ThreadMessage;
+import proj.models.ThreadsMessages;
 import proj.utils.CloudinaryUtil;
 
 import javax.servlet.ServletException;
@@ -16,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -26,19 +32,21 @@ import java.util.Map;
 )
 public class ForumServlet extends HttpServlet {
     ThreadDao threadDao = new ThreadDaoImpl();
+    ThreadsMessagesDao threadsMessagesDao = new ThreadsMessagesDaoImpl();
     Cloudinary cloudinary = CloudinaryUtil.getInstance();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String path = req.getRequestURI().substring(req.getContextPath().length());
+        String id = req.getParameter("id");
         List<Thread> threadList = threadDao.getAll();
-        if (path.equals("/forum")) {
+        if (id == null) {
             req.setAttribute("threads", threadList);
-            req.getRequestDispatcher("forum.ftl").forward(req, resp);
-        } else{
-            String threadId = path.split("/")[2];
-            Thread thread = threadDao.get(Integer.parseInt(threadId));
-            //получить массив сообщений по id треда
-            //отправить в страницу
+            req.getRequestDispatcher("/forum.ftl").forward(req, resp);
+        } else {
+            Thread thread = threadDao.get(Integer.parseInt(id));
+            List<ThreadMessage> messages = threadsMessagesDao.getAllMessages(Integer.parseInt(id));
+            req.setAttribute("headInfo",thread);
+            req.setAttribute("messages",messages);
+            req.getRequestDispatcher("/thread.ftl").forward(req,resp);
         }
     }
 

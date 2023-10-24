@@ -62,6 +62,7 @@
                             <div class="card-body">
                                 <h5 class="card-title"><strong>${thread.title}</strong></h5>
                                 <p class="card-text">${thread.description!"Описание не указано"}</p>
+                                <a href="/forum?id=${thread.forum_thread_id}" class="btn btn-primary float-right">Просмотр</a>
                             </div>
                         </div>
                     </div>

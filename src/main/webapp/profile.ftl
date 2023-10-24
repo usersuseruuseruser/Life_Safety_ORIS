@@ -3,6 +3,7 @@
 <head>
     <script src = "/js/findUser.js"></script>
     <script src = "/js/filter.js"></script>
+    <link rel="stylesheet" href="css/maxProfilePicHeight.css">
 </head>
 <#macro title>Account page</#macro>
 <#macro content></#macro>
@@ -31,7 +32,7 @@
                 <div class="col mt-3 mb-3">
                     <div class="card shadow bg-light" style="width: 20rem" >
                         <#if (user.profilePictureUrl)??>
-                            <img src="${user.profilePictureUrl}" class="card-img-top" alt="${user.name}'s profile picture">
+                            <img src="${user.profilePictureUrl}" class="card-img-top profile-image" alt="${user.name}'s profile picture">
                         <#else>
                             <div class="card-header">
                                 Фото еще не загружено

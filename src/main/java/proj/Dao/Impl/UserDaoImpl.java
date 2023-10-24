@@ -4,7 +4,8 @@ package proj.Dao.Impl;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import proj.Dao.Dao;
+
+import proj.Dao.UserDao;
 import proj.models.User;
 import proj.utils.DatabaseConnectionUtil;
 
@@ -109,6 +110,27 @@ public class UserDaoImpl implements UserDao {
             throw new RuntimeException(e);
         }
 
+    }
+
+    @Override
+    public void update(int id, User user) {
+        try {
+            String sql = "UPDATE userz SET name = ?, email = ?, password = ?, selfInfo = ?," +
+                    " \"loginToken\" = ?, \"profilePictureUrl\" = ? " +
+                    "WHERE id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getEmail());
+            preparedStatement.setString(3, user.getPassword());
+            preparedStatement.setString(4, user.getSelfInfo());
+            preparedStatement.setString(5, user.getLoginToken());
+            preparedStatement.setString(6, user.getProfilePictureURl());
+            preparedStatement.setString(7, user.getLogin());
+            preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     @Override

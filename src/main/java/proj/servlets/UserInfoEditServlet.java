@@ -20,7 +20,7 @@ import java.util.Objects;
 
 @WebServlet(name="editUserInfo",urlPatterns = "/edit")
 @MultipartConfig(
-        maxFileSize = 5 * 1024 * 1024,
+        maxFileSize = 5 * 1024 * 1024 * 8,
         maxRequestSize = 5 * 1024 * 1024 * 10
 )
 public class UserInfoEditServlet extends HttpServlet {
@@ -42,6 +42,10 @@ public class UserInfoEditServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
+        if (session == null || session.getAttribute("username") == null){
+            resp.sendRedirect("/main");
+            return;
+        }
         String username = (String) session.getAttribute("username");
         UserDto dto = userService.getByName(username);
         String name = req.getParameter("name");

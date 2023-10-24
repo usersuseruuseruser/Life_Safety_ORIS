@@ -2,8 +2,7 @@ package proj.service.impl;
 
 
 
-import proj.Dao.Dao;
-import proj.Dao.Impl.UserDao;
+import proj.Dao.UserDao;
 import proj.Dao.Impl.UserDaoImpl;
 import proj.Dto.UserDto;
 import proj.models.User;

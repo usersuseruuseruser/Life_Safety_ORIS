@@ -1,4 +1,4 @@
-package proj.Dao.Impl;
+package proj.Dao;
 
 import proj.Dao.Dao;
 import proj.models.User;
@@ -10,7 +10,7 @@ public interface UserDao extends Dao<User> {
     List<User> getAll();
     void save(User t);
     User get(String login);
-    void update(String username,User user);
+    void update(String login, User entity);
     User getByToken(String loginToken);
     User getByUsername(String username);
 }

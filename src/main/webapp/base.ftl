@@ -26,6 +26,7 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="/main">На главную</a></li>
                         <li><a class="dropdown-item" href="/users">Пользователи</a></li>
+                        <li><a class="dropdown-item" href="/forum">Форум</a></li>
                         <#if isLoggedIn == true>
                             <li><a class="dropdown-item" href="/users/${username}">Личный кабинет</a></li>
                             <li><a class="dropdown-item" href="/logout">Выйти из аккаунта</a></li>

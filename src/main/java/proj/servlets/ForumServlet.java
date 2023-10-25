@@ -37,8 +37,8 @@ public class ForumServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
-        List<Thread> threadList = threadDao.getAll();
         if (id == null) {
+            List<Thread> threadList = threadDao.getAll();
             req.setAttribute("threads", threadList);
             req.getRequestDispatcher("/forum.ftl").forward(req, resp);
         } else {

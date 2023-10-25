@@ -13,7 +13,7 @@
         </div>
     </div>
     <#if isLoggedIn>
-        <div class="containder mt-5">
+        <div class="container mt-5">
             <div class="container mt-2">
                 <div class="d-flex justify-content-center align-items-center">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"

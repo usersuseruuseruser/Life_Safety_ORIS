@@ -21,9 +21,9 @@ public class AnswerDaoImpl implements AnswerDao {
             ResultSet resultSet =  preparedStatement.executeQuery();
 
             if (resultSet.next()){
-                return new Answer(resultSet.getInt("answer_id"),
+                return new Answer(resultSet.getInt("question_id"),
                         resultSet.getString("answer_text"),
-                        resultSet.getInt("question_id"));
+                        resultSet.getInt("answer"));
             }
             return null;
         } catch (SQLException ex){
@@ -40,9 +40,9 @@ public class AnswerDaoImpl implements AnswerDao {
             List<Answer> answers = new ArrayList<>();
 
             while(resultSet.next()){
-                answers.add(new Answer(resultSet.getInt("answer_id"),
+                answers.add(new Answer(resultSet.getInt("question_id"),
                         resultSet.getString("answer_text"),
-                        resultSet.getInt("question_id")));
+                        resultSet.getInt("answer_id")));
             }
             return answers;
         } catch (SQLException e) {

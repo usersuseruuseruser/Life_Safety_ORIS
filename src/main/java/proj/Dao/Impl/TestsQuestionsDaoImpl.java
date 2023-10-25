@@ -56,9 +56,9 @@ public class TestsQuestionsDaoImpl implements TestsQuestionsDao {
     public void save(TestsQuestions testsQuestions) {
         String query = "INSERT INTO tests_questions(tests_questions_id, test_id, question_id) VALUES (?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, testsQuestions.getTestsQuestionsId());
-            preparedStatement.setInt(2, testsQuestions.getTestId());
-            preparedStatement.setInt(3, testsQuestions.getQuestionId());
+            preparedStatement.setInt(1, testsQuestions.getTests_questions_id());
+            preparedStatement.setInt(2, testsQuestions.getTest_id());
+            preparedStatement.setInt(3, testsQuestions.getQuestion_id());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

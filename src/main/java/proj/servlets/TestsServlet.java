@@ -19,8 +19,6 @@ import java.util.stream.Collectors;
 @WebServlet(urlPatterns = "/test/*")
 public class TestsServlet extends HttpServlet {
     AnswerDao answerDao = new AnswerDaoImpl();
-    QuestionDao questionDao = new QuestionDaoImpl();
-    QuestionsAnswerDao questionsAnswerDao = new QuestionsAnswersDaoImpl();
     TestsQuestionsDao testsQuestionsDao = new TestsQuestionsDaoImpl();
     TestDao testDao = new TestDaoImpl();
     @Override

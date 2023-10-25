@@ -23,7 +23,7 @@ public class AnswerDaoImpl implements AnswerDao {
             if (resultSet.next()){
                 return new Answer(resultSet.getInt("question_id"),
                         resultSet.getString("answer_text"),
-                        resultSet.getInt("answer"));
+                        resultSet.getInt("answer_id"));
             }
             return null;
         } catch (SQLException ex){

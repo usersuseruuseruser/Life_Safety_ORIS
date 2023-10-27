@@ -67,8 +67,8 @@ public class ThreadDaoImpl implements ThreadDao {
             preparedStatement.setString(3, thread.getImage_url());
 
             preparedStatement.executeUpdate();
-        } catch (SQLException e){
-            throw new RuntimeException(e);
+        } catch (SQLException ex){
+            throw new RuntimeException(ex);
         }
     }
 

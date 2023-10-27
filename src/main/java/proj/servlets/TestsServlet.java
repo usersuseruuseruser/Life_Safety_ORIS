@@ -36,6 +36,9 @@ public class TestsServlet extends HttpServlet {
                 return;
             }
             Test test = testDao.get(id);
+            if (test == null){
+                throw new RuntimeException("тест не найден");
+            }
             List<Question> questions = testsQuestionsDao.getQuestions(id);
             List<Integer> questionIds = questions.stream().map(Question::getQuestionId).toList();
             List<Answer> answers = answerDao.getAll().stream().filter(a -> questionIds.contains(a.getQuestionId())).toList();

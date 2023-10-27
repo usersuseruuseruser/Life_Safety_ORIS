@@ -26,7 +26,7 @@ public class TestDaoImpl implements TestDao {
                 return new Test(testId, title, imageUrl);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return null;
     }
@@ -44,7 +44,7 @@ public class TestDaoImpl implements TestDao {
                 tests.add(new Test(testId, title, imageUrl));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return tests;
     }
@@ -58,7 +58,7 @@ public class TestDaoImpl implements TestDao {
             statement.setString(3, test.getImageUrl());
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -71,7 +71,7 @@ public class TestDaoImpl implements TestDao {
             statement.setInt(3, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 }

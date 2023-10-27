@@ -17,9 +17,6 @@ import java.util.List;
 public class TestResultsServlet extends HttpServlet {
     AnswerDao answerDao = new AnswerDaoImpl();
     QuestionDao questionDao = new QuestionDaoImpl();
-    QuestionsAnswerDao questionsAnswerDao = new QuestionsAnswersDaoImpl();
-    TestsQuestionsDao testsQuestionsDao = new TestsQuestionsDaoImpl();
-    TestDao testDao = new TestDaoImpl();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Integer> answerIds = new ArrayList<>();

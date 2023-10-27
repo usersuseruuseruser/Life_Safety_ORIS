@@ -28,6 +28,9 @@ public class PersonalAccountServlet extends HttpServlet {
         } else{
             String userName = path.split("/")[2];
             UserDto userDto = userService.getByName(userName);
+            if (userDto == null){
+                throw new RuntimeException("Такого юзера нет");
+            }
             listUserDto.add(userDto);
         }
         req.setAttribute("users",listUserDto);

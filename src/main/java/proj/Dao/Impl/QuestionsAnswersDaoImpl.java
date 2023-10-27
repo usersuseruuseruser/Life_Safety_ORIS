@@ -28,7 +28,7 @@ public class QuestionsAnswersDaoImpl implements QuestionsAnswerDao {
                 );
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return null;
     }
@@ -47,7 +47,7 @@ public class QuestionsAnswersDaoImpl implements QuestionsAnswerDao {
                 ));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return questionsAnswersList;
     }
@@ -60,7 +60,7 @@ public class QuestionsAnswersDaoImpl implements QuestionsAnswerDao {
             statement.setInt(2, questionsAnswers.getAnswerId());
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -73,7 +73,7 @@ public class QuestionsAnswersDaoImpl implements QuestionsAnswerDao {
             statement.setInt(3, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -88,7 +88,7 @@ public class QuestionsAnswersDaoImpl implements QuestionsAnswerDao {
                 answers.add(answerDao.get(resultSet.getInt("answer_id")));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return answers;
     }

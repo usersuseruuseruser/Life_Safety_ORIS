@@ -24,8 +24,8 @@ public class QuestionDaoImpl implements QuestionDao {
                         resultSet.getInt("answer_id")
                 );
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
         }
         return null;
     }
@@ -43,8 +43,8 @@ public class QuestionDaoImpl implements QuestionDao {
                         resultSet.getInt("answer_id")
                 ));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
         }
         return questions;
     }
@@ -56,8 +56,8 @@ public class QuestionDaoImpl implements QuestionDao {
             statement.setString(1, question.getText());
             statement.setInt(2, question.getAnswerId());
             statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
         }
     }
 
@@ -69,8 +69,8 @@ public class QuestionDaoImpl implements QuestionDao {
             statement.setInt(2, entity.getAnswerId());
             statement.setInt(3, id);
             statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
         }
     }
 }

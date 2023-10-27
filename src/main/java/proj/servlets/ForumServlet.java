@@ -43,6 +43,9 @@ public class ForumServlet extends HttpServlet {
             req.getRequestDispatcher("/forum.ftl").forward(req, resp);
         } else {
             Thread thread = threadDao.get(Integer.parseInt(id));
+            if (thread == null){
+                throw new RuntimeException("Такого треда нет");
+            }
             List<ThreadMessage> messages = threadsMessagesDao.getAllMessages(Integer.parseInt(id));
             req.setAttribute("headInfo",thread);
             req.setAttribute("messages",messages);
@@ -54,14 +57,16 @@ public class ForumServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String title = req.getParameter("threadTitle");
         String description = req.getParameter("threadDescription");
-
-        Thread thread = new Thread(0,title,description,null);
         Part part = req.getPart("threadImage");
-
+        //сделаю самую простую проверку и самую простую обработку. сил нет уже возиться с этим всем т.т
+        if (title == null || title.trim().equals("") || !(Boolean)req.getAttribute("isLoggedIn")){
+            resp.sendRedirect("/forum");
+            return;
+        }
         InputStream fileContent = part.getInputStream();
         Map uploadResult = cloudinary.uploader().upload(fileContent.readAllBytes(), ObjectUtils.emptyMap());
         String imageUrl = (String) uploadResult.get("url");
-        thread.setImage_url(imageUrl);
+        Thread thread = new Thread(0,title,description,imageUrl);
         threadDao.save(thread);
 
         resp.sendRedirect("/forum");

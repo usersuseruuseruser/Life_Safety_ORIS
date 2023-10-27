@@ -27,7 +27,7 @@ public class TestsQuestionsDaoImpl implements TestsQuestionsDao {
                 );
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return testsQuestions;
     }
@@ -47,7 +47,7 @@ public class TestsQuestionsDaoImpl implements TestsQuestionsDao {
                 testsQuestionsList.add(testsQuestions);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return testsQuestionsList;
     }
@@ -61,7 +61,7 @@ public class TestsQuestionsDaoImpl implements TestsQuestionsDao {
             preparedStatement.setInt(3, testsQuestions.getQuestion_id());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -74,7 +74,7 @@ public class TestsQuestionsDaoImpl implements TestsQuestionsDao {
             preparedStatement.setInt(3, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -94,7 +94,7 @@ public class TestsQuestionsDaoImpl implements TestsQuestionsDao {
                 questions.add(question);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return questions;
     }

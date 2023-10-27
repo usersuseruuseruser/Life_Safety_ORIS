@@ -45,8 +45,8 @@ public class AnswerDaoImpl implements AnswerDao {
                         resultSet.getInt("answer_id")));
             }
             return answers;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
         }
     }
 
@@ -61,8 +61,8 @@ public class AnswerDaoImpl implements AnswerDao {
             preparedStatement.setInt(2,answer.getQuestionId());
             preparedStatement.setString(3, answer.getText());
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
         }
     }
 
@@ -78,8 +78,8 @@ public class AnswerDaoImpl implements AnswerDao {
             preparedStatement.setInt(3,id);
 
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
         }
     }
 }

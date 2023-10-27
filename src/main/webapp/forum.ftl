@@ -8,13 +8,15 @@
     <div class="d-flex justify-content-center align-items-center">
         <h2>Текущие форумы</h2>
     </div>
-    <div class="container mt-2">
-        <div class="d-flex justify-content-center align-items-center">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                    data-bs-whatever="">Создать новый тред
-            </button>
+    <#if isLoggedIn>
+        <div class="container mt-2">
+            <div class="d-flex justify-content-center align-items-center">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        data-bs-whatever="">Создать новый тред
+                </button>
+            </div>
         </div>
-    </div>
+    </#if>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

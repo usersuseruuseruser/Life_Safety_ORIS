@@ -43,7 +43,7 @@ public class UserInfoEditServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
         if (session == null || session.getAttribute("username") == null){
-            resp.sendRedirect("/main");
+            resp.sendRedirect("/login");
             return;
         }
         String username = (String) session.getAttribute("username");

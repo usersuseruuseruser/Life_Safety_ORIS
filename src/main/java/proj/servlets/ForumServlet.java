@@ -60,6 +60,7 @@ public class ForumServlet extends HttpServlet {
         Part part = req.getPart("threadImage");
         //сделаю самую простую проверку и самую простую обработку. сил нет уже возиться с этим всем т.т
         if (title == null || title.trim().equals("") || !(Boolean)req.getAttribute("isLoggedIn")){
+            // ты отправляешься в бразилию(на форум)
             resp.sendRedirect("/forum");
             return;
         }

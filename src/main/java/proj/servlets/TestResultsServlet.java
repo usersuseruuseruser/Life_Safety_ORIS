@@ -32,7 +32,7 @@ public class TestResultsServlet extends HttpServlet {
             }
         }
 
-        int totalAnswers = answerIds.size();
+        int totalAnswers = Integer.parseInt(req.getParameter("questions_length"));
         int rightAnswers = 0;
         for (Integer id:
              answerIds) {

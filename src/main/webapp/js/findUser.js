@@ -1,7 +1,7 @@
 $(document).ready(function() {
     $("#ajax-button").on("click", function () {
         var username = $("#searchUsername").val();
-        if (username !== "") {
+        if (username.length !== 0) {
             $.get("/searchUser?username=" + username, function (data) {
                 if (data.error) {
                     alert(data.error);

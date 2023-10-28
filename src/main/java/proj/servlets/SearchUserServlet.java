@@ -19,7 +19,6 @@ public class SearchUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
-
         if (username != null && !username.trim().isEmpty()) {
             UserDto userDTO = userService.getByName(username);
             resp.setContentType("application/json");

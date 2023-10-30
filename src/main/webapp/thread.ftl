@@ -53,9 +53,9 @@
         <ul class="list-group">
             <#if messages?size != 0>
                 <#list messages as message>
-                    <li class="list-group-item">
+                    <li class="list-group-item" style="word-break: break-all">
                         <strong><a href="/users/${message.username}">${message.username}</a> </strong>: ${message.text}
-                        <div class="text-muted" style="font-size: 0.8em;">${message.data?string["yyyy-MM-dd HH:mm:ss"]}</div>
+                        <div class="text-muted" style="font-size: 0.8em">${message.data?string["yyyy-MM-dd HH:mm:ss"]}</div>
                     </li>
                 </#list>
             </#if>

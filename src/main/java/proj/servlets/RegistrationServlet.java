@@ -23,7 +23,7 @@ public class RegistrationServlet extends HttpServlet {
         if (session != null && session.getAttribute("login") != null) {
             resp.sendRedirect("/main");
         } else {
-            resp.sendRedirect("registration.ftl");
+            req.getRequestDispatcher("registration.ftl").forward(req,resp);
         }
     }
 

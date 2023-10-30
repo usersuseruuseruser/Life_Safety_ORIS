@@ -26,10 +26,11 @@ public class PersonalAccountServlet extends HttpServlet {
         if (path.equals("/users")) {
             listUserDto =  userService.getAll();
         } else{
+            String[] data = path.split("/");
             String userName = path.split("/")[2];
             UserDto userDto = userService.getByName(userName);
-            if (userDto == null){
-                throw new RuntimeException("Такого юзера нет");
+            if (userDto == null || data.length > 3){
+                throw new RuntimeException("Такого юзера нет или введен неправильный url");
             }
             listUserDto.add(userDto);
         }

@@ -51,9 +51,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
-            if (typeof errorMessage !== "undefined" && errorMessage !== "") {
-                errorModal.show();
-            }
+            errorModal.show();
         });
     </script>
 

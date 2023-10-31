@@ -31,6 +31,9 @@ public class ThreadServlet extends HttpServlet {
             return;
         }
         String text = req.getParameter("text");
+        if (text.length() == 0 || text.length() > 500){
+            throw new RuntimeException("длина сообщения должна быть в пределах от 1 до 500 символов");
+        }
         int threadId = Integer.parseInt(req.getParameter("threadId"));
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         ThreadMessage threadMessage = new ThreadMessage(0,username,text,timestamp);

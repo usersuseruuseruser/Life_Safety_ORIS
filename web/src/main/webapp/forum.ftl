@@ -52,7 +52,7 @@
         <div class="row">
             <#if threads??>
                 <#list threads as thread>
-                    <div class="col mt-3 mb-3">
+                    <div class="col mt-3 mb-3" style="word-break: break-all">
                         <div class="card shadow bg-light" style="width: 20rem">
                             <#if (thread.image_url)??>
                                 <img src="${thread.image_url}" class="card-img-top thread-image" alt="${thread.title} image">

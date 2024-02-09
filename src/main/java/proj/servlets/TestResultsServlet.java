@@ -2,6 +2,7 @@ package proj.servlets;
 
 import proj.Dao.*;
 import proj.Dao.Impl.*;
+import proj.service.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,8 +16,13 @@ import java.util.List;
 
 @WebServlet("/testResults")
 public class TestResultsServlet extends HttpServlet {
-    AnswerDao answerDao = new AnswerDaoImpl();
-    QuestionDao questionDao = new QuestionDaoImpl();
+    AnswerDao answerDao;
+    QuestionDao questionDao;
+    @Override
+    public void init() {
+        this.answerDao = (AnswerDao) getServletContext().getAttribute("answerDao");
+        this.questionDao = (QuestionDao) getServletContext().getAttribute("questionDao");
+    }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Integer> answerIds = new ArrayList<>();

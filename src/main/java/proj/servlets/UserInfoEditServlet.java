@@ -24,7 +24,11 @@ import java.util.Objects;
         maxRequestSize = 5 * 1024 * 1024 * 10
 )
 public class UserInfoEditServlet extends HttpServlet {
-    private final UserService userService = new UserServiceImpl();
+    private UserService userService;
+    @Override
+    public void init() {
+        this.userService = (UserService) getServletContext().getAttribute("userService");
+    }
     Cloudinary cloudinary = CloudinaryUtil.getInstance();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

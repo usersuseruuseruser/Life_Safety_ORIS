@@ -1,6 +1,11 @@
 package proj.servlets;
 
+import proj.Dao.Impl.UserDaoImpl;
+import proj.Dao.ThreadDao;
+import proj.Dao.ThreadsMessagesDao;
+import proj.Dao.UserDao;
 import proj.Dto.UserDto;
+import proj.models.User;
 import proj.service.impl.UserServiceImpl;
 import proj.service.service.UserService;
 import proj.utils.UserValidator;
@@ -14,7 +19,11 @@ import java.util.UUID;
 
 @WebServlet(name = "login",urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
-    private final UserService userService = new UserServiceImpl();
+    private UserService userService;
+    @Override
+    public void init() {
+        this.userService = (UserService) getServletContext().getAttribute("userService");
+    }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);

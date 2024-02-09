@@ -16,7 +16,11 @@ import java.util.Objects;
 
 @WebServlet(name = "registration",urlPatterns = "/registration")
 public class RegistrationServlet extends HttpServlet {
-    private final UserService userService = new UserServiceImpl();
+    private UserService userService;
+    @Override
+    public void init() {
+        this.userService = (UserService) getServletContext().getAttribute("userService");
+    }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);

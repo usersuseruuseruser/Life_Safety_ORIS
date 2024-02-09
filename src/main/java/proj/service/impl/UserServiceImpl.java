@@ -12,7 +12,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class UserServiceImpl implements UserService {
-    private final UserDao dao = new UserDaoImpl();
+    private UserDao dao;
+    public UserServiceImpl(UserDao userDao){
+        dao = userDao;
+    }
     @Override
     public List<UserDto> getAll() {
         return dao.getAll().stream().map(

@@ -20,8 +20,13 @@ import java.sql.Timestamp;
 //этот сервлет обрабатывает отправленный запрос на пост сообщения в тред
 @WebServlet(name = "thread",urlPatterns = "/thread")
 public class ThreadServlet extends HttpServlet {
-    ThreadMessageDao threadMessageDao = new ThreadMessageDaoImpl();
-    ThreadsMessagesDao threadsMessagesDao = new ThreadsMessagesDaoImpl();
+    ThreadMessageDao threadMessageDao;
+    ThreadsMessagesDao threadsMessagesDao;
+    @Override
+    public void init() {
+        this.threadMessageDao = (ThreadMessageDao) getServletContext().getAttribute("ThreadMessageDao");
+        this.threadMessageDao = (ThreadMessageDao) getServletContext().getAttribute("ThreadsMessagesDao");
+    }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = (String) req.getAttribute("username");

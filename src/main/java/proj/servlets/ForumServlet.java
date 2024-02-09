@@ -5,6 +5,7 @@ import com.cloudinary.utils.ObjectUtils;
 import proj.Dao.Impl.ThreadDaoImpl;
 import proj.Dao.Impl.ThreadsMessagesDaoImpl;
 import proj.Dao.ThreadDao;
+import proj.Dao.ThreadMessageDao;
 import proj.Dao.ThreadsMessagesDao;
 import proj.Dto.UserDto;
 import proj.models.Thread;
@@ -31,9 +32,14 @@ import java.util.Map;
         maxRequestSize = 5 * 1024 * 1024 * 10
 )
 public class ForumServlet extends HttpServlet {
-    ThreadDao threadDao = new ThreadDaoImpl();
-    ThreadsMessagesDao threadsMessagesDao = new ThreadsMessagesDaoImpl();
+    ThreadDao threadDao;
+    ThreadsMessagesDao threadsMessagesDao;
     Cloudinary cloudinary = CloudinaryUtil.getInstance();
+    @Override
+    public void init() {
+       this.threadDao = (ThreadDao) getServletContext().getAttribute("threadDao");
+       this.threadsMessagesDao = (ThreadsMessagesDao) getServletContext().getAttribute("ThreadsMessagesDao");
+    }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");

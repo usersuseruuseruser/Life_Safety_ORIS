@@ -18,7 +18,11 @@ import java.util.stream.Collectors;
 
 @WebServlet(name = "Account",urlPatterns = "/users/*")
 public class PersonalAccountServlet extends HttpServlet {
-    private final UserService userService = new UserServiceImpl();
+    private UserService userService;
+    @Override
+    public void init() {
+        this.userService = (UserService) getServletContext().getAttribute("userService");
+    }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String path = req.getRequestURI().substring(req.getContextPath().length());

@@ -18,9 +18,16 @@ import java.util.stream.Collectors;
 
 @WebServlet(urlPatterns = "/test/*")
 public class TestsServlet extends HttpServlet {
-    AnswerDao answerDao = new AnswerDaoImpl();
-    TestsQuestionsDao testsQuestionsDao = new TestsQuestionsDaoImpl();
-    TestDao testDao = new TestDaoImpl();
+    AnswerDao answerDao;
+    TestsQuestionsDao testsQuestionsDao;
+    TestDao testDao;
+    @Override
+    public void init() {
+        this.answerDao = (AnswerDao) getServletContext().getAttribute("answerDao");
+        this.testsQuestionsDao = (TestsQuestionsDao) getServletContext().getAttribute("testsQuestionsDao");
+        this.testDao = (TestDao) getServletContext().getAttribute("testDao");
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (req.getParameter("id") == null) {
